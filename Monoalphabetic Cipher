@@ -1,0 +1,35 @@
+def monoalphabetic_cipher(plaintext, key):
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    substitution_map = {alphabet[i]: key[i] for i in range(len(alphabet))}
+
+    ciphertext = ''
+    for char in plaintext.upper():
+        if char in substitution_map:
+            ciphertext += substitution_map[char]
+        else:
+            ciphertext += char  # Non-alphabetic characters are not changed
+
+    return ciphertext
+def decrypt(ciphertext, key):
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    reverse_substitution_map = {key[i]: alphabet[i] for i in range(len(alphabet))}
+
+    decrypted_text = ''
+    for char in ciphertext.upper():
+        if char in reverse_substitution_map:
+            decrypted_text += reverse_substitution_map[char]
+        else:
+            decrypted_text += char  # Non-alphabetic characters are not changed
+
+    return decrypted_text
+
+plaintext = input("Enter the text to encrypt: ")
+key = input("Enter the substitution key (26 unique uppercase letters): ")
+if len(key) != 26 or len(set(key)) != 26 or not key.isupper():
+    print("Invalid key. Please ensure it contains 26 unique uppercase letters.")
+else:
+    encrypted_text = monoalphabetic_cipher(plaintext, key)
+    print("Encrypted text: ", encrypted_text)
+    decrypted_text = decrypt(encrypted_text, key)
+    print("Decrypted text: ", decrypted_text)
+    print("Encrypted text: ", encrypted_text)

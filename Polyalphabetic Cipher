@@ -1,0 +1,35 @@
+def encrypt(plaintext, key):
+    encrypted_text = ""
+    for char in plaintext:
+        if char.isalpha():
+            index = ord(char.lower()) - ord('a')
+            encrypted_char = key[index]
+            if char.isupper():
+                encrypted_char = encrypted_char.upper()
+            encrypted_text += encrypted_char
+        else:
+            encrypted_text += char
+    return encrypted_text
+
+def decrypt(ciphertext, key):
+    decrypted_text = ""
+    for char in ciphertext:
+        if char.isalpha():
+            index = key.index(char.lower())
+            decrypted_char = chr(index + ord('a'))
+            if char.isupper():
+                decrypted_char = decrypted_char.upper()
+            decrypted_text += decrypted_char
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+pt = input("Enter the text to encrypt: ")
+key = input("Enter the substitution key (26 unique lowercase letters): ")
+if len(key) != 26 or len(set(key)) != 26 or not key.islower():
+    print("Invalid key. Please ensure it contains 26 unique lowercase letters.")
+else:
+    encrypted_text = encrypt(pt, key)
+    print("Encrypted text: ", encrypted_text)
+    decrypted_text = decrypt(encrypted_text, key)
+    print("Decrypted text: ", decrypted_text)
